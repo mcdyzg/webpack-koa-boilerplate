@@ -95,21 +95,59 @@ module.exports = require("koa-router");
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
+var _this = this;
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
 var config = __webpack_require__(0);
 
-var show = async function show(ctx) {
-    await ctx.render('index', {
-        cdnHostName: config.cdnHostName,
-        jsVersion: config.jsVersion
-    });
-};
-var showA = async function showA(ctx) {
-    console.log((await models.industry.findOne()));
-    console.log(ctx.session.a);
-    // ctx.session.a = 111
-    console.log(ctx.session.a);
-    ctx.body = 'aaaa';
-};
+var show = function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(ctx) {
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+            while (1) {
+                switch (_context.prev = _context.next) {
+                    case 0:
+                        _context.next = 2;
+                        return ctx.render('index', {
+                            cdnHostName: config.cdnHostName,
+                            jsVersion: config.jsVersion
+                        });
+
+                    case 2:
+                    case 'end':
+                        return _context.stop();
+                }
+            }
+        }, _callee, _this);
+    }));
+
+    return function show(_x) {
+        return _ref.apply(this, arguments);
+    };
+}();
+var showA = function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(ctx) {
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+            while (1) {
+                switch (_context2.prev = _context2.next) {
+                    case 0:
+                        console.log(ctx.session.a);
+                        // ctx.session.a = 111
+                        console.log(ctx.session.a);
+                        ctx.body = 'aaaa';
+
+                    case 3:
+                    case 'end':
+                        return _context2.stop();
+                }
+            }
+        }, _callee2, _this);
+    }));
+
+    return function showA(_x2) {
+        return _ref2.apply(this, arguments);
+    };
+}();
 
 module.exports = {
     show: show,
@@ -258,7 +296,7 @@ module.exports = router;
 /***/ (function(module, exports, __webpack_require__) {
 
 var port = Number.parseInt(Object({"NODE_ENV":"development"}).PORT) || 6060;
-var mongoUri = 'mongodb://jiamengdba:P9reQI35gN0C7f88@40.125.167.38:27017';
+var mongoUri = 'mongodb://localhost:27017';
 
 module.exports = {
     port: port,
@@ -283,7 +321,7 @@ module.exports = {
 /***/ (function(module, exports, __webpack_require__) {
 
 var port = Number.parseInt(Object({"NODE_ENV":"development"}).PORT) || 6060;
-var mongoUri = 'mongodb://jiamengdba:P9reQI35gN0C7f88@40.125.167.38:27017';
+var mongoUri = '';
 
 module.exports = {
     port: port,
@@ -293,8 +331,8 @@ module.exports = {
         url: mongoUri + '/fenxiao_user?authSource=admin&poolSize=5',
         collection: 'sessions'
     },
-    cdnHostName: 'http://jiaopeitoutiao-test.oss-cn-hangzhou.aliyuncs.com',
-    jsVersion: '//jiaopeitoutiao-test.oss-cn-hangzhou.aliyuncs.com/js/console/js/201801031600',
+    cdnHostName: 'https://cdn.bootcss.com/',
+    jsVersion: 'https://cdn.bootcss.com/',
     view_path: './'
 };
 
@@ -316,6 +354,10 @@ module.exports = router;
 /***/ }),
 /* 16 */
 /***/ (function(module, exports, __webpack_require__) {
+
+var _this = this;
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 var errors = __webpack_require__(17);
 var schedule = __webpack_require__(18);
@@ -344,31 +386,68 @@ exports.getResponse = function (success, e) {
 };
 
 // 获取用户信息并放到state上
-exports.addSessionHelper = async function (ctx, next) {
-    var adminUser = null;
+exports.addSessionHelper = function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(ctx, next) {
+        var adminUser, adminId;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+            while (1) {
+                switch (_context.prev = _context.next) {
+                    case 0:
+                        adminUser = null;
+                        adminId = ctx.session.adminId;
 
-    var adminId = ctx.session.adminId;
+                        if (!adminId) {
+                            _context.next = 6;
+                            break;
+                        }
 
+                        _context.next = 5;
+                        return models.admin.findById(adminId);
 
-    if (adminId) {
-        adminUser = await models.admin.findById(adminId);
-    }
+                    case 5:
+                        adminUser = _context.sent;
 
-    ctx.state = {
-        admin_id: adminUser ? adminUser._id : '',
-        adminUser: adminUser,
-        isAdminSignIn: !!adminUser
+                    case 6:
+
+                        ctx.state = {
+                            admin_id: adminUser ? adminUser._id : '',
+                            adminUser: adminUser,
+                            isAdminSignIn: !!adminUser
+                        };
+
+                        _context.next = 9;
+                        return next();
+
+                    case 9:
+                    case 'end':
+                        return _context.stop();
+                }
+            }
+        }, _callee, _this);
+    }));
+
+    return function (_x, _x2) {
+        return _ref.apply(this, arguments);
     };
-
-    await next();
-};
+}();
 
 // 定时任务
-exports.runClockMission = async function () {
-    schedule.scheduleJob({ minute: 10 }, function () {
-        console.log('');
-    });
-};
+exports.runClockMission = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        while (1) {
+            switch (_context2.prev = _context2.next) {
+                case 0:
+                    schedule.scheduleJob({ minute: 10 }, function () {
+                        console.log('');
+                    });
+
+                case 1:
+                case 'end':
+                    return _context2.stop();
+            }
+        }
+    }, _callee2, _this);
+}));
 
 /***/ }),
 /* 17 */

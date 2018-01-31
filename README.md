@@ -11,6 +11,8 @@ koa2+mongodb+koa-session+koa-router+
 
 development:
 
+need a mongodb
+
 `git clone https://github.com/mcdyzg/webpack-koa-boilerplate.git`
 
 `npm install `

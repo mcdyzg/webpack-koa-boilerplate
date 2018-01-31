@@ -1,5 +1,5 @@
 const port = Number.parseInt(process.env.PORT) || 6060;
-const mongoUri = ''
+const mongoUri = 'mongodb://localhost:27017'
 
 module.exports = {
     port,
