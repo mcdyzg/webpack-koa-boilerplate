@@ -1,4 +1,3 @@
-<!--  
 
 # webpack-koa-boilerplate
 
