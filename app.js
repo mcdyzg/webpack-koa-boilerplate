@@ -44,6 +44,11 @@
 /******/ 		}
 /******/ 	};
 /******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function(module) {
 /******/ 		var getter = module && module.__esModule ?
@@ -59,484 +64,253 @@
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
 /******/
+/******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ "./config/development.js":
+/*!*******************************!*\
+  !*** ./config/development.js ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("var port = Number.parseInt(Object({\"NODE_ENV\":\"development\"}).PORT) || 6060;\nvar mongoUri = 'mongodb://root:COP2GDjacBLjLPMVSqD774sIDusILa@47.98.157.202:3717';\n\nmodule.exports = {\n\tport: port,\n\tmongoUri: mongoUri,\n\tmongoUriParam: 'authSource=admin',\n\t// 存放session的库和表配置\n\tsessionURL: {\n\t\turl: mongoUri + '/fenxiao_user?authSource=admin&poolSize=5',\n\t\tcollection: 'sessions',\n\t\t// 这里设置的是数据库session定期清除的时间，与cookie的过期时间应保持一致，cookie由浏览器负责定时清除，需要注意的是索引一旦建立修改的时候需要删除旧的索引。此处的时间是秒为单位，cookie的maxAge是毫秒为单位\n\t\tmaxAge: 24 * 60 * 60\n\t},\n\t// 引用资源的cdn路径\n\tcdnHostName: 'https://cdn.bootcss.com/',\n\t// 打包完成发布上线的cdn前缀\n\tjsVersion: 'https://cdn.bootcss.com/',\n\tview_path: './'\n};\n\n//# sourceURL=webpack:///./config/development.js?");
+
+/***/ }),
+
+/***/ "./config/index.js":
+/*!*************************!*\
+  !*** ./config/index.js ***!
+  \*************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var development = __webpack_require__(13);
-var production = __webpack_require__(14);
-
-var env = "development" || 'development';
-
-var configs = {
-    development: development,
-    production: production
-};
-
-var defaultConfig = {
-    env: env
-};
-
-var config = Object.assign({}, defaultConfig, configs[env]);
-
-module.exports = config;
+eval("var development = __webpack_require__(/*! ./development */ \"./config/development.js\");\nvar production = __webpack_require__(/*! ./production */ \"./config/production.js\");\n\nvar env = \"development\" || 'development';\n\nvar configs = {\n    development: development,\n    production: production\n};\n\nvar defaultConfig = {\n    env: env\n};\n\nvar config = Object.assign({}, defaultConfig, configs[env]);\n\nmodule.exports = config;\n\n//# sourceURL=webpack:///./config/index.js?");
 
 /***/ }),
-/* 1 */
+
+/***/ "./config/production.js":
+/*!******************************!*\
+  !*** ./config/production.js ***!
+  \******************************/
+/*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = require("koa-router");
+eval("var port = Number.parseInt(Object({\"NODE_ENV\":\"development\"}).PORT) || 6060;\nvar mongoUri = '';\n\nmodule.exports = {\n    port: port,\n    mongoUri: mongoUri,\n    mongoUriParam: 'authSource=admin',\n    sessionURL: {\n        url: mongoUri + '/fenxiao_user?authSource=admin&poolSize=5',\n        collection: 'sessions'\n    },\n    cdnHostName: 'https://cdn.bootcss.com/',\n    jsVersion: 'https://cdn.bootcss.com/',\n    view_path: './'\n};\n\n//# sourceURL=webpack:///./config/production.js?");
 
 /***/ }),
-/* 2 */
+
+/***/ "./src/controllers/view.js":
+/*!*********************************!*\
+  !*** ./src/controllers/view.js ***!
+  \*********************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _this = this;
-
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-var config = __webpack_require__(0);
-
-var show = function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(ctx) {
-        return regeneratorRuntime.wrap(function _callee$(_context) {
-            while (1) {
-                switch (_context.prev = _context.next) {
-                    case 0:
-                        _context.next = 2;
-                        return ctx.render('index', {
-                            cdnHostName: config.cdnHostName,
-                            jsVersion: config.jsVersion
-                        });
-
-                    case 2:
-                    case 'end':
-                        return _context.stop();
-                }
-            }
-        }, _callee, _this);
-    }));
-
-    return function show(_x) {
-        return _ref.apply(this, arguments);
-    };
-}();
-var showA = function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(ctx) {
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
-            while (1) {
-                switch (_context2.prev = _context2.next) {
-                    case 0:
-                        console.log(ctx.session.a);
-                        // ctx.session.a = 111
-                        console.log(ctx.session.a);
-                        ctx.body = 'aaaa';
-
-                    case 3:
-                    case 'end':
-                        return _context2.stop();
-                }
-            }
-        }, _callee2, _this);
-    }));
-
-    return function showA(_x2) {
-        return _ref2.apply(this, arguments);
-    };
-}();
-
-module.exports = {
-    show: show,
-    showA: showA
-};
+eval("var _this = this;\n\nfunction _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step(\"next\", value); }, function (err) { step(\"throw\", err); }); } } return step(\"next\"); }); }; }\n\nvar config = __webpack_require__(/*! ../../config */ \"./config/index.js\");\n\nvar show = function () {\n    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(ctx) {\n        return regeneratorRuntime.wrap(function _callee$(_context) {\n            while (1) {\n                switch (_context.prev = _context.next) {\n                    case 0:\n                        _context.next = 2;\n                        return ctx.render('index', {\n                            cdnHostName: config.cdnHostName,\n                            jsVersion: config.jsVersion\n                        });\n\n                    case 2:\n                    case 'end':\n                        return _context.stop();\n                }\n            }\n        }, _callee, _this);\n    }));\n\n    return function show(_x) {\n        return _ref.apply(this, arguments);\n    };\n}();\nvar showA = function () {\n    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(ctx) {\n        return regeneratorRuntime.wrap(function _callee2$(_context2) {\n            while (1) {\n                switch (_context2.prev = _context2.next) {\n                    case 0:\n                        console.log(ctx.session.a);\n                        // ctx.session.a = 111\n                        console.log(ctx.session.a);\n                        ctx.body = 'aaaa';\n\n                    case 3:\n                    case 'end':\n                        return _context2.stop();\n                }\n            }\n        }, _callee2, _this);\n    }));\n\n    return function showA(_x2) {\n        return _ref2.apply(this, arguments);\n    };\n}();\n\nmodule.exports = {\n    show: show,\n    showA: showA\n};\n\n//# sourceURL=webpack:///./src/controllers/view.js?");
 
 /***/ }),
-/* 3 */
+
+/***/ "./src/helpers/errors.js":
+/*!*******************************!*\
+  !*** ./src/helpers/errors.js ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("/*\n* 错误列表\n*/\n\nmodule.exports = {\n  e001: '请求参数确失'\n};\n\n//# sourceURL=webpack:///./src/helpers/errors.js?");
+
+/***/ }),
+
+/***/ "./src/helpers/index.js":
+/*!******************************!*\
+  !*** ./src/helpers/index.js ***!
+  \******************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(4);
-
+eval("var _this = this;\n\nfunction _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step(\"next\", value); }, function (err) { step(\"throw\", err); }); } } return step(\"next\"); }); }; }\n\nvar errors = __webpack_require__(/*! ./errors */ \"./src/helpers/errors.js\");\nvar schedule = __webpack_require__(/*! node-schedule */ \"node-schedule\");\n\nexports.getUuid = function () {\n    function s4() {\n        return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);\n    }\n\n    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4();\n};\n\nexports.getResponse = function (success, e) {\n    if (success) {\n        return {\n            data: e || {},\n            success: true\n        };\n    } else {\n        return {\n            success: false,\n            error: e || '',\n            errorMsg: errors[e] || '未知错误！'\n        };\n    }\n};\n\n// 获取用户信息并放到state上\nexports.addSessionHelper = function () {\n    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(ctx, next) {\n        var adminUser, adminId;\n        return regeneratorRuntime.wrap(function _callee$(_context) {\n            while (1) {\n                switch (_context.prev = _context.next) {\n                    case 0:\n                        adminUser = null;\n                        adminId = ctx.session.adminId;\n\n                        if (!adminId) {\n                            _context.next = 6;\n                            break;\n                        }\n\n                        _context.next = 5;\n                        return models.admin.findById(adminId);\n\n                    case 5:\n                        adminUser = _context.sent;\n\n                    case 6:\n\n                        ctx.state = {\n                            admin_id: adminUser ? adminUser._id : '',\n                            adminUser: adminUser,\n                            isAdminSignIn: !!adminUser\n                        };\n\n                        _context.next = 9;\n                        return next();\n\n                    case 9:\n                    case 'end':\n                        return _context.stop();\n                }\n            }\n        }, _callee, _this);\n    }));\n\n    return function (_x, _x2) {\n        return _ref.apply(this, arguments);\n    };\n}();\n\n// 定时任务\nexports.runClockMission = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {\n    return regeneratorRuntime.wrap(function _callee2$(_context2) {\n        while (1) {\n            switch (_context2.prev = _context2.next) {\n                case 0:\n                    schedule.scheduleJob({ minute: 10 }, function () {\n                        console.log('');\n                    });\n\n                case 1:\n                case 'end':\n                    return _context2.stop();\n            }\n        }\n    }, _callee2, _this);\n}));\n\n//# sourceURL=webpack:///./src/helpers/index.js?");
 
 /***/ }),
-/* 4 */
+
+/***/ "./src/index.js":
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(5);
-var Koa = __webpack_require__(6);
-var bodyParser = __webpack_require__(7);
-var logger = __webpack_require__(8);
-var views = __webpack_require__(9);
-var session = __webpack_require__(10);
-var MongoStore = __webpack_require__(11);
-
-var router = __webpack_require__(12);
-var config = __webpack_require__(0);
-
-var _require = __webpack_require__(16),
-    addSessionHelper = _require.addSessionHelper,
-    runClockMission = _require.runClockMission;
-
-var app = new Koa();
-
-app.use(logger());
-
-app.use(bodyParser({}));
-
-var path =  true ? config.view_path : __dirname + '/views';
-app.use(views(path, {
-    map: {
-        html: 'lodash'
-    }
-}));
-
-global.models = __webpack_require__(19);
-
-app.use(session({
-    store: new MongoStore(config.sessionURL),
-    signed: false,
-    // cookie过期时间，由浏览器负责到时清除，单位毫秒
-    maxAge: 24 * 60 * 60 * 1000
-}, app));
-
-app.use(router.routes(), router.allowedMethods());
-
-// runClockMission()
-
-app.listen(config.port);
+eval("__webpack_require__(/*! babel-polyfill */ \"babel-polyfill\");\nvar Koa = __webpack_require__(/*! koa */ \"koa\");\nvar bodyParser = __webpack_require__(/*! koa-bodyparser */ \"koa-bodyparser\");\nvar logger = __webpack_require__(/*! koa-logger */ \"koa-logger\");\nvar views = __webpack_require__(/*! koa-views */ \"koa-views\");\nvar session = __webpack_require__(/*! koa-session */ \"koa-session\");\nvar MongoStore = __webpack_require__(/*! koa-session-mongo2 */ \"koa-session-mongo2\");\n\nvar router = __webpack_require__(/*! ./routes */ \"./src/routes/index.js\");\nvar config = __webpack_require__(/*! ../config */ \"./config/index.js\");\n\nvar _require = __webpack_require__(/*! ./helpers */ \"./src/helpers/index.js\"),\n    addSessionHelper = _require.addSessionHelper,\n    runClockMission = _require.runClockMission;\n\nvar app = new Koa();\n\napp.use(logger());\n\napp.use(bodyParser({}));\n\nvar path =  true ? config.view_path : undefined;\napp.use(views(path, {\n\tmap: {\n\t\thtml: 'lodash'\n\t}\n}));\n\nglobal.models = __webpack_require__(/*! ./models */ \"./src/models/index.js\");\n\napp.use(session({\n\tstore: new MongoStore(config.sessionURL),\n\tsigned: false,\n\t// cookie过期时间，由浏览器负责到时清除，单位毫秒\n\tmaxAge: 24 * 60 * 60 * 1000\n}, app));\n\napp.use(router.routes(), router.allowedMethods());\n\n// runClockMission()\n\nconsole.log('启动端口：', config.port);\n\napp.listen(config.port);\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ }),
-/* 5 */
-/***/ (function(module, exports) {
 
-module.exports = require("babel-polyfill");
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-module.exports = require("koa");
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports) {
-
-module.exports = require("koa-bodyparser");
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports) {
-
-module.exports = require("koa-logger");
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports) {
-
-module.exports = require("koa-views");
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports) {
-
-module.exports = require("koa-session");
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports) {
-
-module.exports = require("koa-session-mongo2");
-
-/***/ }),
-/* 12 */
+/***/ "./src/models/index.js":
+/*!*****************************!*\
+  !*** ./src/models/index.js ***!
+  \*****************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Router = __webpack_require__(1);
-var View = __webpack_require__(2);
-var a = __webpack_require__(15);
-
-var router = Router();
-
-var routes = [a];
-
-var _iteratorNormalCompletion = true;
-var _didIteratorError = false;
-var _iteratorError = undefined;
-
-try {
-  for (var _iterator = routes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-    route = _step.value;
-
-    router.use(route.routes(), route.allowedMethods());
-  }
-} catch (err) {
-  _didIteratorError = true;
-  _iteratorError = err;
-} finally {
-  try {
-    if (!_iteratorNormalCompletion && _iterator.return) {
-      _iterator.return();
-    }
-  } finally {
-    if (_didIteratorError) {
-      throw _iteratorError;
-    }
-  }
-}
-
-router.get("/", View.show);
-
-module.exports = router;
+eval("var mongoose = __webpack_require__(/*! mongoose */ \"mongoose\");\n\nvar _require = __webpack_require__(/*! ../../config */ \"./config/index.js\"),\n    mongoUri = _require.mongoUri,\n    mongoUriParam = _require.mongoUriParam;\n\nmongoose.Promise = global.Promise;\n\nvar conn = mongoose.createConnection(mongoUri + '/fenxiao?' + mongoUriParam);\n\nconsole.log('models');\n\nvar db = {};\n\nvar industry = __webpack_require__(/*! ./industry */ \"./src/models/industry.js\");\n\nvar models = [industry];\n\nvar _iteratorNormalCompletion = true;\nvar _didIteratorError = false;\nvar _iteratorError = undefined;\n\ntry {\n    for (var _iterator = models[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {\n        model = _step.value;\n\n        var newSchema = new mongoose.Schema(typeof model.schema === 'function' && model.schema(mongoose.Schema) || model.schema, { collection: model.name });\n        db[model.name] = conn.model(model.name, newSchema);\n    }\n} catch (err) {\n    _didIteratorError = true;\n    _iteratorError = err;\n} finally {\n    try {\n        if (!_iteratorNormalCompletion && _iterator.return) {\n            _iterator.return();\n        }\n    } finally {\n        if (_didIteratorError) {\n            throw _iteratorError;\n        }\n    }\n}\n\nmodule.exports = db;\n\n//# sourceURL=webpack:///./src/models/index.js?");
 
 /***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
 
-var port = Number.parseInt(Object({"NODE_ENV":"development"}).PORT) || 6060;
-var mongoUri = 'mongodb://localhost:27017';
-
-module.exports = {
-    port: port,
-    mongoUri: mongoUri,
-    mongoUriParam: 'authSource=admin',
-    // 存放session的库和表配置
-    sessionURL: {
-        url: mongoUri + '/fenxiao_user?authSource=admin&poolSize=5',
-        collection: 'sessions',
-        // 这里设置的是数据库session定期清除的时间，与cookie的过期时间应保持一致，cookie由浏览器负责定时清除，需要注意的是索引一旦建立修改的时候需要删除旧的索引。此处的时间是秒为单位，cookie的maxAge是毫秒为单位
-        maxAge: 24 * 60 * 60
-    },
-    // 引用资源的cdn路径
-    cdnHostName: 'https://cdn.bootcss.com/',
-    // 打包完成发布上线的cdn前缀
-    jsVersion: 'https://cdn.bootcss.com/',
-    view_path: './'
-};
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var port = Number.parseInt(Object({"NODE_ENV":"development"}).PORT) || 6060;
-var mongoUri = '';
-
-module.exports = {
-    port: port,
-    mongoUri: mongoUri,
-    mongoUriParam: 'authSource=admin',
-    sessionURL: {
-        url: mongoUri + '/fenxiao_user?authSource=admin&poolSize=5',
-        collection: 'sessions'
-    },
-    cdnHostName: 'https://cdn.bootcss.com/',
-    jsVersion: 'https://cdn.bootcss.com/',
-    view_path: './'
-};
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Router = __webpack_require__(1);
-var View = __webpack_require__(2);
-
-var router = Router({
-    prefix: '/a'
-});
-
-router.get('/', View.showA);
-
-module.exports = router;
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _this = this;
-
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-var errors = __webpack_require__(17);
-var schedule = __webpack_require__(18);
-
-exports.getUuid = function () {
-    function s4() {
-        return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-    }
-
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4();
-};
-
-exports.getResponse = function (success, e) {
-    if (success) {
-        return {
-            data: e || {},
-            success: true
-        };
-    } else {
-        return {
-            success: false,
-            error: e || '',
-            errorMsg: errors[e] || '未知错误！'
-        };
-    }
-};
-
-// 获取用户信息并放到state上
-exports.addSessionHelper = function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(ctx, next) {
-        var adminUser, adminId;
-        return regeneratorRuntime.wrap(function _callee$(_context) {
-            while (1) {
-                switch (_context.prev = _context.next) {
-                    case 0:
-                        adminUser = null;
-                        adminId = ctx.session.adminId;
-
-                        if (!adminId) {
-                            _context.next = 6;
-                            break;
-                        }
-
-                        _context.next = 5;
-                        return models.admin.findById(adminId);
-
-                    case 5:
-                        adminUser = _context.sent;
-
-                    case 6:
-
-                        ctx.state = {
-                            admin_id: adminUser ? adminUser._id : '',
-                            adminUser: adminUser,
-                            isAdminSignIn: !!adminUser
-                        };
-
-                        _context.next = 9;
-                        return next();
-
-                    case 9:
-                    case 'end':
-                        return _context.stop();
-                }
-            }
-        }, _callee, _this);
-    }));
-
-    return function (_x, _x2) {
-        return _ref.apply(this, arguments);
-    };
-}();
-
-// 定时任务
-exports.runClockMission = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-    return regeneratorRuntime.wrap(function _callee2$(_context2) {
-        while (1) {
-            switch (_context2.prev = _context2.next) {
-                case 0:
-                    schedule.scheduleJob({ minute: 10 }, function () {
-                        console.log('');
-                    });
-
-                case 1:
-                case 'end':
-                    return _context2.stop();
-            }
-        }
-    }, _callee2, _this);
-}));
-
-/***/ }),
-/* 17 */
+/***/ "./src/models/industry.js":
+/*!********************************!*\
+  !*** ./src/models/industry.js ***!
+  \********************************/
+/*! no static exports found */
 /***/ (function(module, exports) {
 
-/*
-* 错误列表
-*/
-
-module.exports = {
-  e001: '请求参数确失'
-};
+eval("var model = {\n    name: 'industry',\n    schema: {\n        name: String, //分类名称,不能重复\n        code: Number, //编号\n        create_time: Number\n    }\n};\n\nmodule.exports = model;\n\n//# sourceURL=webpack:///./src/models/industry.js?");
 
 /***/ }),
-/* 18 */
-/***/ (function(module, exports) {
 
-module.exports = require("node-schedule");
-
-/***/ }),
-/* 19 */
+/***/ "./src/routes/a.js":
+/*!*************************!*\
+  !*** ./src/routes/a.js ***!
+  \*************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var mongoose = __webpack_require__(20);
-
-var _require = __webpack_require__(0),
-    mongoUri = _require.mongoUri,
-    mongoUriParam = _require.mongoUriParam;
-
-mongoose.Promise = global.Promise;
-
-var conn = mongoose.createConnection(mongoUri + '/fenxiao?' + mongoUriParam);
-
-console.log('models');
-
-var db = {};
-
-var industry = __webpack_require__(21);
-
-var models = [industry];
-
-var _iteratorNormalCompletion = true;
-var _didIteratorError = false;
-var _iteratorError = undefined;
-
-try {
-    for (var _iterator = models[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-        model = _step.value;
-
-        var newSchema = new mongoose.Schema(typeof model.schema === 'function' && model.schema(mongoose.Schema) || model.schema, { collection: model.name });
-        db[model.name] = conn.model(model.name, newSchema);
-    }
-} catch (err) {
-    _didIteratorError = true;
-    _iteratorError = err;
-} finally {
-    try {
-        if (!_iteratorNormalCompletion && _iterator.return) {
-            _iterator.return();
-        }
-    } finally {
-        if (_didIteratorError) {
-            throw _iteratorError;
-        }
-    }
-}
-
-module.exports = db;
+eval("var Router = __webpack_require__(/*! koa-router */ \"koa-router\");\nvar View = __webpack_require__(/*! ../controllers/view */ \"./src/controllers/view.js\");\n\nvar router = Router({\n    prefix: '/a'\n});\n\nrouter.get('/', View.showA);\n\nmodule.exports = router;\n\n//# sourceURL=webpack:///./src/routes/a.js?");
 
 /***/ }),
-/* 20 */
-/***/ (function(module, exports) {
 
-module.exports = require("mongoose");
+/***/ "./src/routes/index.js":
+/*!*****************************!*\
+  !*** ./src/routes/index.js ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var Router = __webpack_require__(/*! koa-router */ \"koa-router\");\nvar View = __webpack_require__(/*! ../controllers/view */ \"./src/controllers/view.js\");\nvar a = __webpack_require__(/*! ./a */ \"./src/routes/a.js\");\n\nvar router = Router();\n\nvar routes = [a];\n\nvar _iteratorNormalCompletion = true;\nvar _didIteratorError = false;\nvar _iteratorError = undefined;\n\ntry {\n  for (var _iterator = routes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {\n    route = _step.value;\n\n    router.use(route.routes(), route.allowedMethods());\n  }\n} catch (err) {\n  _didIteratorError = true;\n  _iteratorError = err;\n} finally {\n  try {\n    if (!_iteratorNormalCompletion && _iterator.return) {\n      _iterator.return();\n    }\n  } finally {\n    if (_didIteratorError) {\n      throw _iteratorError;\n    }\n  }\n}\n\nrouter.get(\"/\", View.show);\n\nmodule.exports = router;\n\n//# sourceURL=webpack:///./src/routes/index.js?");
 
 /***/ }),
-/* 21 */
+
+/***/ 0:
+/*!****************************!*\
+  !*** multi ./src/index.js ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("module.exports = __webpack_require__(/*! ./src/index.js */\"./src/index.js\");\n\n\n//# sourceURL=webpack:///multi_./src/index.js?");
+
+/***/ }),
+
+/***/ "babel-polyfill":
+/*!*********************************!*\
+  !*** external "babel-polyfill" ***!
+  \*********************************/
+/*! no static exports found */
 /***/ (function(module, exports) {
 
-var model = {
-    name: 'industry',
-    schema: {
-        name: String, //分类名称,不能重复
-        code: Number, //编号
-        create_time: Number
-    }
-};
+eval("module.exports = require(\"babel-polyfill\");\n\n//# sourceURL=webpack:///external_%22babel-polyfill%22?");
 
-module.exports = model;
+/***/ }),
+
+/***/ "koa":
+/*!**********************!*\
+  !*** external "koa" ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"koa\");\n\n//# sourceURL=webpack:///external_%22koa%22?");
+
+/***/ }),
+
+/***/ "koa-bodyparser":
+/*!*********************************!*\
+  !*** external "koa-bodyparser" ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"koa-bodyparser\");\n\n//# sourceURL=webpack:///external_%22koa-bodyparser%22?");
+
+/***/ }),
+
+/***/ "koa-logger":
+/*!*****************************!*\
+  !*** external "koa-logger" ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"koa-logger\");\n\n//# sourceURL=webpack:///external_%22koa-logger%22?");
+
+/***/ }),
+
+/***/ "koa-router":
+/*!*****************************!*\
+  !*** external "koa-router" ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"koa-router\");\n\n//# sourceURL=webpack:///external_%22koa-router%22?");
+
+/***/ }),
+
+/***/ "koa-session":
+/*!******************************!*\
+  !*** external "koa-session" ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"koa-session\");\n\n//# sourceURL=webpack:///external_%22koa-session%22?");
+
+/***/ }),
+
+/***/ "koa-session-mongo2":
+/*!*************************************!*\
+  !*** external "koa-session-mongo2" ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"koa-session-mongo2\");\n\n//# sourceURL=webpack:///external_%22koa-session-mongo2%22?");
+
+/***/ }),
+
+/***/ "koa-views":
+/*!****************************!*\
+  !*** external "koa-views" ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"koa-views\");\n\n//# sourceURL=webpack:///external_%22koa-views%22?");
+
+/***/ }),
+
+/***/ "mongoose":
+/*!***************************!*\
+  !*** external "mongoose" ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"mongoose\");\n\n//# sourceURL=webpack:///external_%22mongoose%22?");
+
+/***/ }),
+
+/***/ "node-schedule":
+/*!********************************!*\
+  !*** external "node-schedule" ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"node-schedule\");\n\n//# sourceURL=webpack:///external_%22node-schedule%22?");
 
 /***/ })
-/******/ ]);
+
+/******/ });
